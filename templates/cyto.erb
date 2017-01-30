@@ -1,0 +1,10 @@
+var chocOutput = {
+  nodes: [
+  <% @state_representations.each do |node| %> { data: { id: '<%= node.id %>', name: '<%= node.name %>', noun: '<%= NODE_COLORS[node.noun] %>' } },
+<% end %>
+  ],
+  edges: [
+  <% @state_transitions.each do |edge| %> { data: { source: '<%= edge.source %>', target: '<%= edge.target %>', label: '<%= edge.link_relation %>', color: '<%= HTTP_COLORS[edge.verb.upcase] %>' } },
+<% end %>
+  ]
+};

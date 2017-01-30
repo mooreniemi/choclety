@@ -1,0 +1,115 @@
+#!/usr/bin/env ruby
+
+require 'json'
+require 'ostruct'
+require 'awesome_print'
+require 'uri'
+
+def read_json_to_ostruct(file_name)
+  JSON.parse(File.read(file_name), object_class: OpenStruct)
+end
+
+def read_json_to_hash(file_name)
+  JSON.parse(File.read(file_name))
+end
+
+require 'active_support/inflector'
+require 'thor'
+
+# http://www.graphviz.org/doc/info/colors.html
+# https://en.wikipedia.org/wiki/Web_colors#HTML_color_names
+HTTP_COLORS = {
+  'DELETE' => 'red',
+  'PUT' => 'blue',
+  'POST' => 'purple'
+}
+HTTP_COLORS.default = 'green'
+HTTP_COLORS.freeze
+
+NODE_COLORS = {
+  'generated_revenue' => 'green',
+  'error' => 'red'
+}
+NODE_COLORS.default = 'lightgrey'
+NODE_COLORS.freeze
+
+class StateTransition
+  attr_accessor :source, :target,
+                :link_relation, :verb,
+                :url_template_type,
+                :url_template, :url
+
+  def initialize(hash)
+    @source = hash["source"]
+    @target = hash["target"]
+    @link_relation = hash["link_relation"]
+    @url_template = parse_url_template_type(hash)
+    @url = hash["url"]
+    @verb = hash["verb"]
+  end
+
+  private
+  def parse_url_template_type(st)
+    if st["url_template_type"] == "collection_item"
+      "#{st["source"]}/:#{st["link_relation"]}"
+    else
+      st["url_template"]
+    end
+  end
+end
+
+class StateRepresentation
+  attr_reader :id, :name, :affordances,
+              :noun
+
+  def initialize(hash, transitions)
+    @id = hash["name"]
+    @name = hash["name"]
+    @noun = hash["noun"]
+    @affordances = affordances_of(hash, transitions)
+  end
+
+  private
+  def affordances_of(h, t)
+    t.select {|e| e.source == h["name"]}.map(&:link_relation)
+  end
+end
+
+class Choc < Thor
+  attr_accessor :app_name,
+                :state_transitions, :state_representations
+  include Thor::Actions
+
+  desc "g <api spec> <optional: app name>",
+       "generates Sinatra app, uses default file name for app name if none given"
+  option :force, :type => :boolean
+
+  def self.source_root
+    File.dirname(__FILE__)
+  end
+
+  def g(api_spec, app_name = "ExampleChocApp")
+    @app_name = app_name
+    api_spec_hash = read_json_to_hash(api_spec)
+    @state_transitions = parse_state_transitions(api_spec_hash)
+    @state_representations = parse_state_representations(api_spec_hash, @state_transitions)
+    #require 'pry'; binding.pry
+    template('templates/cyto.erb', "#{app_name}/#{app_name}.js")
+  end
+
+  private
+  def parse_state_transitions(hash)
+    hash["state_transitions"].collect do |st_hash|
+      StateTransition.new(st_hash)
+    end
+  end
+
+  def parse_state_representations(hash, transitions)
+    hash["state_representations"].collect do |st_hash|
+      StateRepresentation.new(st_hash, transitions)
+    end
+  end
+
+end
+
+Choc.start

@@ -1,0 +1,25 @@
+AllCops:
+  Exclude:
+    - bin/**/*
+    - db/migrate/**.rb
+    - db/seeds/**.rb
+    - db/seeds.rb
+    - db/schema.rb
+    - client/**/*
+    - spec/rails_helper.rb
+    - spec/spec_helper.rb
+    - test/test_helper.rb
+    - config/**/*
+    - lib/scraper/*
+
+Documentation:
+  Enabled: false
+
+LineLength:
+  Max: 80
+
+Rails:
+  Enabled: true
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
