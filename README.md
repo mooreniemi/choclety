@@ -7,7 +7,7 @@ a hypermedia api-spec grapher, based on [this blog post](http://mooreniemi.githu
 
 Input: an api spec file.
 
-Output: a useful graph of your api.
+Output: a useful graph of your api, and maybe your api itself.
 
 Here's a screenshot of the example output, with shortest path to your revenue generating node highlighted:
 
@@ -17,7 +17,9 @@ And [here's a hosted version](https://mooreniemi.github.io/choclety/) you can cl
 
 ## usage
 
-To generate a graph, run `./choc g <api-spec>.json`, ie.:
+### graph output
+
+To generate a [cytoscape graph](http://js.cytoscape.org/), run `./choc g <api-spec>.json`, ie.:
 
 ```
 ./choc g ApiSpecs/api-spec.json
@@ -30,6 +32,16 @@ Then run a server in the root directory to view, ie.:
 ```
 python -m SimpleHTTPServer 8000
 ```
+
+### api output
+
+To generate an api, run `./choc a <api-spec>.json`, ie.:
+
+```
+./choc a ApiSpecs/api-spec.json
+```
+
+Currently we're just generating a [single file Sinatra app](http://www.sinatrarb.com/contrib/json.html), so you can run it using `ruby YourAppName.rb`.
 
 ## the spec format
 
