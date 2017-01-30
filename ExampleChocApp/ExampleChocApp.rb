@@ -1,130 +1,130 @@
 require 'sinatra'
-require 'json'
+require 'sinatra/json'
 
 
 get '/homepage' do
-  {
+  json({
     data: {},
     affordances: ["product", "categories", "vendors"]
-  }.to_json
+  })
 end
 
 get '/product' do
-  {
+  json({
     data: {"id"=>"uuid"},
     affordances: ["products/:product_id/reviews", "cart", "product/:vendor_id"]
-  }.to_json
+  })
 end
 
 get '/categories' do
-  {
+  json({
     data: {},
     affordances: ["categories/:category_id"]
-  }.to_json
+  })
 end
 
 get '/vendors' do
-  {
+  json({
     data: {},
     affordances: ["vendors/:vendor_id"]
-  }.to_json
+  })
 end
 
 get '/categories/:category_id' do
-  {
+  json({
     data: {},
     affordances: ["products/:product_id", "products?by_rating"]
-  }.to_json
+  })
 end
 
 get '/products/:product_id' do
-  {
+  json({
     data: {"id"=>"uuid"},
     affordances: ["products/:product_id/reviews", "cart", "product/:vendor_id"]
-  }.to_json
+  })
 end
 
 get '/products?by_rating' do
-  {
+  json({
     data: {},
     affordances: ["products/:product_id", "products?by_rating"]
-  }.to_json
+  })
 end
 
 get '/products/:product_id/reviews' do
-  {
+  json({
     data: {},
     affordances: ["reviews/:review_id", "review"]
-  }.to_json
+  })
 end
 
 get '/reviews/:review_id' do
-  {
+  json({
     data: {},
     affordances: ["review"]
-  }.to_json
+  })
 end
 
 post '/review' do
-  {
+  json({
     data: {},
     affordances: ["review"]
-  }.to_json
+  })
 end
 
 put '/review' do
-  {
+  json({
     data: {},
     affordances: ["review"]
-  }.to_json
+  })
 end
 
 post '/cart' do
-  {
+  json({
     data: {},
     affordances: ["cart", "invoice"]
-  }.to_json
+  })
 end
 
 delete '/cart' do
-  {
+  json({
     data: {},
     affordances: ["cart", "invoice"]
-  }.to_json
+  })
 end
 
 post '/invoice' do
-  {
+  json({
     data: {},
     affordances: []
-  }.to_json
+  })
 end
 
 get '/product/:vendor_id' do
-  {
+  json({
     data: {},
     affordances: ["products"]
-  }.to_json
+  })
 end
 
 get '/vendors/:vendor_id' do
-  {
+  json({
     data: {},
     affordances: ["products"]
-  }.to_json
+  })
 end
 
 get '/products' do
-  {
+  json({
     data: {},
     affordances: ["products/:product_id", "products?by_rating"]
-  }.to_json
+  })
 end
 
 get '/root' do
-  {
+  json({
     data: {},
     affordances: ["homepage"]
-  }.to_json
+  })
 end
 
