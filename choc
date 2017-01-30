@@ -34,26 +34,28 @@ NODE_COLORS.default = 'lightgrey'
 NODE_COLORS.freeze
 
 class StateTransition
-  attr_accessor :source, :target,
-                :link_relation, :verb,
-                :url_template_type,
-                :url_template, :url
+  attr_accessor :source, :target, :link_relation,
+                :verb, :url
 
   def initialize(hash)
     @source = hash["source"]
     @target = hash["target"]
     @link_relation = hash["link_relation"]
-    @url_template = parse_url_template_type(hash)
-    @url = hash["url"]
+    @url = parse_url_template_type(hash)
     @verb = hash["verb"]
   end
 
   private
   def parse_url_template_type(st)
+    # need to general when more are allowable
     if st["url_template_type"] == "collection_item"
       "#{st["source"]}/:#{st["link_relation"]}"
-    else
+    elsif st["url_template"]
       st["url_template"]
+    elsif st["url"]
+      st["url"]
+    else
+      st["target"]
     end
   end
 end
@@ -86,13 +88,13 @@ class Choc < Thor
                 :state_transitions, :state_representations
   include Thor::Actions
 
-  desc "g <api spec> <optional: app name>",
-       "generates Sinatra app, uses default file name for app name if none given"
-  option :force, :type => :boolean
-
   def self.source_root
     File.dirname(__FILE__)
   end
+
+  desc "g <api spec> <optional: app name>",
+       "generates cytoscape graph, uses default file name for app name if none given"
+  option :force, :type => :boolean
 
   def g(api_spec, app_name = "ExampleChocApp")
     @app_name = app_name
@@ -104,6 +106,22 @@ class Choc < Thor
     check_for_parity(@state_representations, @state_transitions)
 
     template('templates/cyto.erb', "#{app_name}/#{app_name}.js")
+  end
+
+  desc "a <api spec> <optional: app name>",
+       "generates Sinatra app, uses default file name for app name if none given"
+  option :force, :type => :boolean
+
+  def a(api_spec, app_name = "ExampleChocApp")
+    @app_name = app_name
+    api_spec_hash = read_json_to_hash(api_spec)
+
+    @state_transitions = parse_state_transitions(api_spec_hash)
+    @state_representations = parse_state_representations(api_spec_hash, @state_transitions)
+
+    check_for_parity(@state_representations, @state_transitions)
+
+    template('templates/app.erb', "#{app_name}/#{app_name}.rb")
   end
 
   private

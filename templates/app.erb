@@ -1,0 +1,5 @@
+require 'sinatra'
+<% @state_transitions.each do |state_transition| %>
+<%= state_transition.verb %> '<%= state_transition.url %>' do
+end
+<% end %>
