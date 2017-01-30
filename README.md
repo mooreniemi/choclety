@@ -13,6 +13,8 @@ Here's a screenshot of the example output, with shortest path to your revenue ge
 
 ![](/choclety-graph.png)
 
+And [here's a hosted version](https://mooreniemi.github.io/choclety/) you can click around on.
+
 ## usage
 
 To generate a graph, run `./choc g <api-spec>.json`, ie.:
