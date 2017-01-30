@@ -123,7 +123,7 @@
     {"name": "review"},
     {"name": "reviews"},
     {"name": "products"},
-    {"name": "product"},
+    {"name": "product", "data": {"id": "uuid"} },
     {"name": "cart"},
     {"name": "invoice", "noun": "generated_revenue"},
     {"name": "vendors"},

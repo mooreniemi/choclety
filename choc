@@ -61,7 +61,8 @@ class StateTransition
 end
 
 class StateRepresentation
-  attr_reader :id, :name, :affordances,
+  attr_reader :id, :name,
+              :affordances, :data,
               :noun
 
   def initialize(hash, transitions)
@@ -69,11 +70,12 @@ class StateRepresentation
     @name = hash["name"]
     @noun = hash["noun"]
     @affordances = affordances_of(hash, transitions)
+    @data = hash["data"] || {}
   end
 
   private
   def affordances_of(h, t)
-    t.select {|e| e.source == h["name"]}.map(&:link_relation)
+    t.select {|e| e.source == h["name"]}.map(&:url)
   end
 end
 
