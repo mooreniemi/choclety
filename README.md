@@ -6,6 +6,7 @@ a hypermedia api spec grapher
 ## purpose
 
 Input: an api spec file.
+
 Output: a useful graph of your api.
 
 Here's a screenshot of the example output, with shortest path to your revenue generating node highlighted:
@@ -68,6 +69,6 @@ For generating a graph or api, `StateRepresentation`s require:
 ```json
 {
   "name": "name of representation, must be unique. namespace with . if necessary, ie. namespace.name",
-  "noun": "generated_revenue|error|null"
+  "noun": "special values for our graph describing their representation type, understood values: generated_revenue|error|null"
 }
 ```
