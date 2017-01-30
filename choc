@@ -76,6 +76,12 @@ class StateRepresentation
 end
 
 class Choc < Thor
+  class InvalidSpecFormat < StandardError
+    def initialize(diff)
+      super("Found #{diff} unaccounted for in your api-spec.")
+    end
+  end
+
   attr_accessor :app_name,
                 :state_transitions, :state_representations
   include Thor::Actions
@@ -91,9 +97,12 @@ class Choc < Thor
   def g(api_spec, app_name = "ExampleChocApp")
     @app_name = app_name
     api_spec_hash = read_json_to_hash(api_spec)
+
     @state_transitions = parse_state_transitions(api_spec_hash)
     @state_representations = parse_state_representations(api_spec_hash, @state_transitions)
-    #require 'pry'; binding.pry
+
+    check_for_parity(@state_representations, @state_transitions)
+
     template('templates/cyto.erb', "#{app_name}/#{app_name}.js")
   end
 
@@ -110,6 +119,12 @@ class Choc < Thor
     end
   end
 
+  def check_for_parity(representations, transitions)
+    rep_names = representations.map(&:name).uniq
+    trans_names = (transitions.map(&:source) + transitions.map(&:target)).uniq
+    diff = (rep_names - trans_names | trans_names - rep_names)
+    raise InvalidSpecFormat.new(diff) if diff != []
+  end
 end
 
 Choc.start

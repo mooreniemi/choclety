@@ -1,0 +1,17 @@
+{
+  "state_transitions": [
+    {
+      "source": "exists",
+      "target": "also_exists",
+      "link_relation": "is_invalid"
+    }
+  ],
+  "state_representations": [
+    {
+      "name": "exists"
+    },
+    {
+      "name": "also_exists"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "state_transitions": [
+    {
+      "source": "doesnt_exist",
+      "target": "exists",
+      "link_relation": "is_invalid",
+      "verb": "get"
+    }
+  ],
+  "state_representations": [
+    {
+      "name": "exists"
+    }
+  ]
+}
