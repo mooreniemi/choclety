@@ -1,0 +1,133 @@
+{
+  "state_transitions": [
+    {
+      "source": "root",
+      "target": "homepage",
+      "link_relation": "shoppe",
+      "verb": "get"
+    },
+    {
+      "source": "homepage",
+      "target": "products",
+      "link_relation": "top_5_product_id",
+      "verb": "get"
+    },
+    {
+      "source": "homepage",
+      "target": "categories",
+      "link_relation": "by_category",
+      "verb": "get"
+    },
+    {
+      "source": "homepage",
+      "target": "vendors",
+      "link_relation": "by_vendor",
+      "verb": "get"
+    },
+    {
+      "source": "categories",
+      "target": "products",
+      "link_relation": "category_id",
+      "url_template_type": "collection_item",
+      "verb": "get"
+    },
+    {
+      "source": "products",
+      "target": "product",
+      "link_relation": "product_id",
+      "url_template_type": "collection_item",
+      "verb": "get"
+    },
+    {
+      "source": "products",
+      "target": "products",
+      "link_relation": "by_rating",
+      "url_template": "products?by_rating",
+      "verb": "get"
+    },
+    {
+      "source": "product",
+      "target": "reviews",
+      "link_relation": "reviews",
+      "url_template": "products/:product_id/reviews",
+      "verb": "get"
+    },
+    {
+      "source": "reviews",
+      "target": "review",
+      "link_relation": "review_id",
+      "url_template_type": "collection_item",
+      "verb": "get"
+    },
+    {
+      "source": "reviews",
+      "target": "review",
+      "link_relation": "add",
+      "verb": "post"
+    },
+    {
+      "source": "review",
+      "target": "review",
+      "link_relation": "edit",
+      "verb": "put"
+    },
+    {
+      "source": "product",
+      "target": "cart",
+      "link_relation": "add",
+      "verb": "post"
+    },
+    {
+      "source": "cart",
+      "target": "cart",
+      "link_relation": "remove",
+      "verb": "delete"
+    },
+    {
+      "source": "cart",
+      "target": "invoice",
+      "link_relation": "buy",
+      "verb": "post"
+    },
+    {
+      "source": "product",
+      "target": "vendor",
+      "link_relation": "vendor_id",
+      "url_template_type": "collection_item",
+      "verb": "get"
+    },
+    {
+      "source": "vendors",
+      "target": "vendor",
+      "link_relation": "vendor_id",
+      "url_template_type": "collection_item",
+      "verb": "get"
+    },
+    {
+      "source": "vendor",
+      "target": "products",
+      "link_relation": "products",
+      "verb": "get"
+    },
+    {
+      "source": "error",
+      "target": "root",
+      "link_relation": "home",
+      "verb": "get"
+    }
+  ],
+  "state_representations": [
+    {"name": "root"},
+    {"name": "homepage"},
+    {"name": "categories"},
+    {"name": "review"},
+    {"name": "reviews"},
+    {"name": "products"},
+    {"name": "product"},
+    {"name": "cart"},
+    {"name": "invoice", "noun": "generated_revenue"},
+    {"name": "vendors"},
+    {"name": "vendor"},
+    {"name": "error", "noun": "error"}
+  ]
+}
