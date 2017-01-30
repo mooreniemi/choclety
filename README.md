@@ -11,7 +11,7 @@ Output: a useful graph of your api.
 
 Here's a screenshot of the example output, with shortest path to your revenue generating node highlighted:
 
-![](/choclety-graph.png)
+![](/choclety.gif)
 
 And [here's a hosted version](https://mooreniemi.github.io/choclety/) you can click around on.
 
