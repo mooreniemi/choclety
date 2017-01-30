@@ -1,7 +1,7 @@
 ![choclety?](/choclety.png)
 
 # choclety
-a hypermedia api spec grapher
+a hypermedia api-spec grapher, based on [this blog post](http://mooreniemi.github.io/apis/web/rest/2017/01/04/when-is-an-api-better-or-worse.html)
 
 ## purpose
 
