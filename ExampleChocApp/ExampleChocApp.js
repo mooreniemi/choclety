@@ -16,7 +16,7 @@ var chocOutput = {
   ],
   edges: [
    { data: { source: 'root', target: 'homepage', label: 'shoppe', color: 'green' } },
- { data: { source: 'homepage', target: 'products', label: 'top_5_product_id', color: 'green' } },
+ { data: { source: 'homepage', target: 'product', label: 'top_5_product_id', color: 'green' } },
  { data: { source: 'homepage', target: 'categories', label: 'by_category', color: 'green' } },
  { data: { source: 'homepage', target: 'vendors', label: 'by_vendor', color: 'green' } },
  { data: { source: 'categories', target: 'products', label: 'category_id', color: 'green' } },

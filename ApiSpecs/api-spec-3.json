@@ -8,7 +8,7 @@
     },
     {
       "source": "homepage",
-      "target": "products",
+      "target": "product",
       "link_relation": "top_5_product_id",
       "verb": "get"
     },
