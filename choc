@@ -119,11 +119,13 @@ class Choc < Thor
     File.dirname(__FILE__)
   end
 
+  DEFAULT_APP_NAME = "ExampleChocApp"
+
   desc "g <api spec> <optional: app name>",
        "generates cytoscape graph, uses default file name for app name if none given"
   option :force, :type => :boolean
 
-  def g(api_spec, app_name = "ExampleChocApp")
+  def g(api_spec, app_name = DEFAULT_APP_NAME)
     @app_name = app_name
     api_spec_hash = read_json_to_hash(api_spec)
 
@@ -139,7 +141,7 @@ class Choc < Thor
        "generates Sinatra app, uses default file name for app name if none given"
   option :force, :type => :boolean
 
-  def a(api_spec, app_name = "ExampleChocApp")
+  def a(api_spec, app_name = DEFAULT_APP_NAME)
     @app_name = app_name
     api_spec_hash = read_json_to_hash(api_spec)
 
@@ -147,6 +149,18 @@ class Choc < Thor
     @state_representations = parse_state_representations(api_spec_hash, @state_transitions)
 
     check_for_parity(@state_representations, @state_transitions)
+
+    @state_transitions.each do |st|
+      @name = "#{st.verb.capitalize}#{st.target.capitalize}"
+      file_name = "#{st.verb}_#{st.target}"
+      @state_transition = st
+      template('templates/affordance.erb', "#{app_name}/affordances/#{file_name}.rb")
+    end
+
+    @state_representations.each do |sr|
+      @name = sr.name
+      template('templates/data.erb', "#{app_name}/data/#{@name}.rb")
+    end
 
     template('templates/app.erb', "#{app_name}/#{app_name}.rb")
   end

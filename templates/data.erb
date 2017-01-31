@@ -1,0 +1,7 @@
+class <%= @name.capitalize %>Data
+  def initialize(options)
+  end
+  def to_hash
+    <%= @state_representations.find {|sr| sr.name == @name }.data %>
+  end
+end

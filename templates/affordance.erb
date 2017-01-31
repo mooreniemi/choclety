@@ -1,0 +1,14 @@
+require_relative '../data/<%= @state_transition.target %>.rb'
+
+class <%= @name %>
+  attr_accessor :params
+  def initialize(params)
+    @params = params
+  end
+  def response
+    {
+      data: <%= @state_transition.target.capitalize %>Data.new(params).to_hash,
+      affordances: <%= @state_representations.find {|sr| sr.id == @state_transition.target }.affordances %>
+    }
+  end
+end
