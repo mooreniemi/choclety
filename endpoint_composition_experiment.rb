@@ -4,8 +4,11 @@
 
 # then run with: ruby endpoint_composition_experiment.rb
 # http://localhost:4567/a
+# => {"a":"a"}
 # http://localhost:4567/a?transclude=b
+# => {"b":"a + b"}
 # http://localhost:4567/a?transclude=b,c
+# => {"c":"a + b + c"}
 
 require 'sinatra'
 require 'json'
