@@ -18,6 +18,7 @@ require 'addressable/uri'
 TRANSCLUSION_PREFIX = /([!\-+]?)(.*)/
 TRANSCLUSION = {'+': 'PUT', '!': 'POST', '-': 'DELETE'}
 TRANSCLUSION.default = 'GET'
+TRANSCLUSION.freeze
 
 helpers do
   def transclude(params, response, path)
