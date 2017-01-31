@@ -64,5 +64,5 @@ end
 get '/c' do
   body = env['BODY']
   p 'responding from c'
-  respond({c: "#{body.values.join(' + ')} + c"})
+  respond({c: ((body || {}).values + ['c']).join(' + ')})
 end
