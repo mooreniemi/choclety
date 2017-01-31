@@ -1,7 +1,6 @@
-var ExampleChocAppChocOutput = {
+var Api1ChocOutput = {
   nodes: [
    { data: { id: 'root', name: 'root', noun: 'lightgrey' } },
- { data: { id: 'homepage', name: 'homepage', noun: 'lightgrey' } },
  { data: { id: 'categories', name: 'categories', noun: 'lightgrey' } },
  { data: { id: 'review', name: 'review', noun: 'lightgrey' } },
  { data: { id: 'reviews', name: 'reviews', noun: 'lightgrey' } },
@@ -15,10 +14,7 @@ var ExampleChocAppChocOutput = {
 
   ],
   edges: [
-   { data: { source: 'root', target: 'homepage', label: 'shoppe', color: 'green' } },
- { data: { source: 'homepage', target: 'product', label: 'top_5_product_id', color: 'green' } },
- { data: { source: 'homepage', target: 'categories', label: 'by_category', color: 'green' } },
- { data: { source: 'homepage', target: 'vendors', label: 'by_vendor', color: 'green' } },
+   { data: { source: 'root', target: 'categories', label: 'shoppe', color: 'green' } },
  { data: { source: 'categories', target: 'products', label: 'category_id', color: 'green' } },
  { data: { source: 'products', target: 'product', label: 'product_id', color: 'green' } },
  { data: { source: 'products', target: 'products', label: 'by_rating', color: 'green' } },

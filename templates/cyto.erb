@@ -1,4 +1,4 @@
-var chocOutput = {
+var <%= app_name.camelize %>ChocOutput = {
   nodes: [
   <% @state_representations.each do |node| %> { data: { id: '<%= node.id %>', name: '<%= node.name %>', noun: '<%= NODE_COLORS[node.noun] %>' } },
 <% end %>
