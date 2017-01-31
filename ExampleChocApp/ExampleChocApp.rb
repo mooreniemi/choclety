@@ -12,14 +12,14 @@ end
 
 get '/products/:product_id' do
   json({
-    data: {"id"=>"uuid"},
-    affordances: [{:link_relation=>"reviews", :url=>"http://localhost:4567/products/:product_id/reviews", :http_method=>"GET", :params=>nil}, {:link_relation=>"add", :url=>"http://localhost:4567/cart", :http_method=>"POST", :params=>nil}, {:link_relation=>"vendor_id", :url=>"http://localhost:4567/product/:vendor_id", :http_method=>"GET", :params=>nil}]
+    data: {"product_id"=>"7a418918-03c4-481d-a30c-1a803d0d486e", "vendor_id"=>"b896f9dc-b693-4fe4-b908-dab9b285aa47"},
+    affordances: [{:link_relation=>"reviews", :url=>"http://localhost:4567/products/:product_id/reviews", :http_method=>"GET", :params=>nil}, {:link_relation=>"add", :url=>"http://localhost:4567/cart", :http_method=>"POST", :params=>{"product_id"=>"product_id"}}, {:link_relation=>"vendor_id", :url=>"http://localhost:4567/product/:vendor_id", :http_method=>"GET", :params=>nil}]
   })
 end
 
 get '/categories' do
   json({
-    data: {},
+    data: {"category_id"=>[1, 2, 3]},
     affordances: [{:link_relation=>"category_id", :url=>"http://localhost:4567/categories/:category_id", :http_method=>"GET", :params=>nil}]
   })
 end
@@ -40,8 +40,8 @@ end
 
 get '/products/:product_id' do
   json({
-    data: {"id"=>"uuid"},
-    affordances: [{:link_relation=>"reviews", :url=>"http://localhost:4567/products/:product_id/reviews", :http_method=>"GET", :params=>nil}, {:link_relation=>"add", :url=>"http://localhost:4567/cart", :http_method=>"POST", :params=>nil}, {:link_relation=>"vendor_id", :url=>"http://localhost:4567/product/:vendor_id", :http_method=>"GET", :params=>nil}]
+    data: {"product_id"=>"7a418918-03c4-481d-a30c-1a803d0d486e", "vendor_id"=>"b896f9dc-b693-4fe4-b908-dab9b285aa47"},
+    affordances: [{:link_relation=>"reviews", :url=>"http://localhost:4567/products/:product_id/reviews", :http_method=>"GET", :params=>nil}, {:link_relation=>"add", :url=>"http://localhost:4567/cart", :http_method=>"POST", :params=>{"product_id"=>"product_id"}}, {:link_relation=>"vendor_id", :url=>"http://localhost:4567/product/:vendor_id", :http_method=>"GET", :params=>nil}]
   })
 end
 
@@ -83,14 +83,14 @@ end
 post '/cart' do
   json({
     data: {},
-    affordances: [{:link_relation=>"remove", :url=>"http://localhost:4567/cart", :http_method=>"DELETE", :params=>nil}, {:link_relation=>"buy", :url=>"http://localhost:4567/invoice", :http_method=>"POST", :params=>nil}]
+    affordances: [{:link_relation=>"remove", :url=>"http://localhost:4567/cart/:cart_id/:product_id", :http_method=>"DELETE", :params=>nil}, {:link_relation=>"buy", :url=>"http://localhost:4567/invoice", :http_method=>"POST", :params=>{"cart_id"=>"cart_id"}}]
   })
 end
 
-delete '/cart' do
+delete '/cart/:cart_id/:product_id' do
   json({
     data: {},
-    affordances: [{:link_relation=>"remove", :url=>"http://localhost:4567/cart", :http_method=>"DELETE", :params=>nil}, {:link_relation=>"buy", :url=>"http://localhost:4567/invoice", :http_method=>"POST", :params=>nil}]
+    affordances: [{:link_relation=>"remove", :url=>"http://localhost:4567/cart/:cart_id/:product_id", :http_method=>"DELETE", :params=>nil}, {:link_relation=>"buy", :url=>"http://localhost:4567/invoice", :http_method=>"POST", :params=>{"cart_id"=>"cart_id"}}]
   })
 end
 

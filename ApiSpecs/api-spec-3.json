@@ -78,18 +78,22 @@
       "source": "product",
       "target": "cart",
       "link_relation": "add",
+      "url_template": "cart",
+      "params": { "product_id": "product_id" },
       "verb": "post"
     },
     {
       "source": "cart",
       "target": "cart",
       "link_relation": "remove",
+      "url_template": "cart/:cart_id/:product_id",
       "verb": "delete"
     },
     {
       "source": "cart",
       "target": "invoice",
       "link_relation": "buy",
+      "params": { "cart_id": "cart_id" },
       "verb": "post"
     },
     {
@@ -124,11 +128,13 @@
     {"name": "homepage",
      "data": {"welcome": "welcome to the shoppe!",
               "top_5_product_id": [1,2,3,4,5] } },
-    {"name": "categories"},
+    {"name": "categories", "data": {"category_id": [1,2,3] } },
     {"name": "review"},
     {"name": "reviews"},
     {"name": "products", "data": {"rating": [1,2,3] } },
-    {"name": "product", "data": {"id": "uuid"} },
+    {"name": "product",
+     "data": {"product_id": "7a418918-03c4-481d-a30c-1a803d0d486e",
+              "vendor_id": "b896f9dc-b693-4fe4-b908-dab9b285aa47"} },
     {"name": "cart"},
     {"name": "invoice", "noun": "generated_revenue"},
     {"name": "vendors"},
