@@ -1,3 +1,12 @@
+# prereqs:
+# gem install sinatra
+# gem install sinatra-contrib
+
+# then run with: ruby endpoint_composition_experiment.rb
+# http://localhost:4567/a
+# http://localhost:4567/a?transclude=b
+# http://localhost:4567/a?transclude=b,c
+
 require 'sinatra'
 require 'json'
 require 'sinatra/json'
