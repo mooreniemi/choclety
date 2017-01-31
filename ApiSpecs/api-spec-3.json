@@ -10,6 +10,7 @@
       "source": "homepage",
       "target": "product",
       "link_relation": "top_5_product_id",
+      "url_template": "products/:product_id",
       "verb": "get"
     },
     {
@@ -118,7 +119,7 @@
   ],
   "state_representations": [
     {"name": "root"},
-    {"name": "homepage"},
+    {"name": "homepage", "data": {"welcome": "welcome to the shoppe!"} },
     {"name": "categories"},
     {"name": "review"},
     {"name": "reviews"},

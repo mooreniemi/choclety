@@ -1,8 +1,9 @@
 require 'sinatra'
+require 'json'
 require 'sinatra/json'
 
 <% @state_transitions.each do |state_transition| %>
-<%= state_transition.verb %> '/<%= state_transition.url %>' do
+<%= state_transition.verb %> '<%= state_transition.url.path %>' do
   json({
     data: <%= @state_representations.find {|sr| sr.id == state_transition.target }.data %>,
     affordances: <%= @state_representations.find {|sr| sr.id == state_transition.target }.affordances %>

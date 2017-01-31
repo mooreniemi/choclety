@@ -33,6 +33,9 @@ NODE_COLORS = {
 NODE_COLORS.default = 'lightgrey'
 NODE_COLORS.freeze
 
+SINATRA_HOST = 'localhost'
+SINATRA_PORT = 4567
+
 class StateTransition
   attr_accessor :source, :target, :link_relation,
                 :verb, :url
@@ -47,16 +50,29 @@ class StateTransition
 
   private
   def parse_url_template_type(st)
-    # need to general when more are allowable
-    if st["url_template_type"] == "collection_item"
-      "#{st["source"]}/:#{st["link_relation"]}"
-    elsif st["url_template"]
-      st["url_template"]
-    elsif st["url"]
-      st["url"]
-    else
-      st["target"]
-    end
+    # need to generalize when more are allowable
+    path = if st["url_template_type"] == "collection_item"
+             "#{st["source"]}/:#{st["link_relation"]}"
+           elsif st["url_template"]
+             st["url_template"]
+           elsif st["url"]
+             st["url"]
+           elsif st["target"] == 'root'
+             ''
+           else
+             st["target"]
+           end
+
+    path, query = path.split('?')
+
+    URI::HTTP.build(
+      {
+        host: SINATRA_HOST,
+        port: SINATRA_PORT,
+        path: "/#{path}",
+        query: query
+      }
+    )
   end
 end
 
@@ -75,7 +91,8 @@ class StateRepresentation
 
   private
   def affordances_of(h, t)
-    t.select {|e| e.source == h["name"]}.map(&:url)
+    t.select { |e| e.source == h["name"] }.
+      collect { |a| { link_relation: a.link_relation, url: a.url.to_s, http_method: a.verb.upcase } }
   end
 end
 
