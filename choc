@@ -38,12 +38,13 @@ SINATRA_PORT = 4567
 
 class StateTransition
   attr_accessor :source, :target, :link_relation,
-                :verb, :url
+                :verb, :url, :params
 
   def initialize(hash)
     @source = hash["source"]
     @target = hash["target"]
     @link_relation = hash["link_relation"]
+    @params = hash["params"]
     @url = parse_url_template_type(hash)
     @verb = hash["verb"]
   end
@@ -92,7 +93,14 @@ class StateRepresentation
   private
   def affordances_of(h, t)
     t.select { |e| e.source == h["name"] }.
-      collect { |a| { link_relation: a.link_relation, url: a.url.to_s, http_method: a.verb.upcase } }
+      collect do |a|
+      {
+        link_relation: a.link_relation,
+        url: a.url.to_s,
+        http_method: a.verb.upcase,
+        params: a.params
+      }
+    end
   end
 end
 

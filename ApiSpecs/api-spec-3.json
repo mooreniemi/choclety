@@ -11,6 +11,7 @@
       "target": "product",
       "link_relation": "top_5_product_id",
       "url_template": "products/:product_id",
+      "params": { ":product_id": "top_5_product_id" },
       "verb": "get"
     },
     {
@@ -44,6 +45,7 @@
       "target": "products",
       "link_relation": "by_rating",
       "url_template": "products?by_rating",
+      "params": { "?by_rating": "rating" },
       "verb": "get"
     },
     {
@@ -119,11 +121,13 @@
   ],
   "state_representations": [
     {"name": "root"},
-    {"name": "homepage", "data": {"welcome": "welcome to the shoppe!"} },
+    {"name": "homepage",
+     "data": {"welcome": "welcome to the shoppe!",
+              "top_5_product_id": [1,2,3,4,5] } },
     {"name": "categories"},
     {"name": "review"},
     {"name": "reviews"},
-    {"name": "products"},
+    {"name": "products", "data": {"rating": [1,2,3] } },
     {"name": "product", "data": {"id": "uuid"} },
     {"name": "cart"},
     {"name": "invoice", "noun": "generated_revenue"},
