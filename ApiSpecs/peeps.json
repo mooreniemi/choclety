@@ -1,0 +1,36 @@
+{
+  "state_transitions": [
+    {
+      "source": "phone-numbers",
+      "target": "contact",
+      "verb": "get",
+      "link_relation": "/phone-numbers/1/relationships/contact",
+      "url": "http://example.org/phone-numbers/1/relationships/contact"
+    },
+    {
+      "source": "contacts",
+      "target": "phone-numbers",
+      "verb": "get",
+      "link_relation": "/contacts/1/relationships/phone-numbers",
+      "url": "http://example.org/contacts/1/relationships/phone-numbers"
+    },
+    {
+      "source": "contact",
+      "target": "phone-numbers",
+      "verb": "get",
+      "link_relation": "/contacts/1/relationships/phone-numbers",
+      "url": "http://example.org/contacts/1/relationships/phone-numbers"
+    }
+  ],
+  "state_representations": [
+    {
+      "name": "phone-numbers"
+    },
+    {
+      "name": "contact"
+    },
+    {
+      "name": "contacts"
+    }
+  ]
+}
